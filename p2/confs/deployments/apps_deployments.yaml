@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-one-deployment
+  labels:
+    app: app-one-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-one
+  template:
+    metadata:
+      labels:
+        app: app-one
+    spec:
+      containers:
+      - name: app-one
+        image: paulbouwer/hello-kubernetes:1.10
+        env: 
+          - name: MESSAGE
+            value: "Hello from app one"
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-two-deployment
+  labels:
+    app: app-two-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-two
+  template:
+    metadata:
+      labels:
+        app: app-two
+    spec:
+      containers:
+      - name: app-two
+        image: paulbouwer/hello-kubernetes:1.10
+        env: 
+        - name: MESSAGE
+          value: "Hello from app two"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-three-deployment
+  labels:
+    app: app-three-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-three
+  template:
+    metadata:
+      labels:
+        app: app-three
+    spec:
+      containers:
+      - name: app-three
+        image: paulbouwer/hello-kubernetes:1.10
+        env: 
+        - name: MESSAGE
+          value: "Hello from app three"

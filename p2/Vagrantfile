@@ -1,0 +1,13 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "debian/bookworm64"
+    config.vm.define "master" do |master|
+        master.vm.hostname = "ceddibaoS"
+        master.vm.network "private_network", ip: "192.168.56.110"
+        master.vm.provider "virtualbox" do |vb|
+            vb.name = "ceddibaoS"
+            vb.memory = "4096"
+            vb.cpus = 2
+        end
+        master.vm.provision "shell", path: "scripts/master_startup.sh"
+    end
+end

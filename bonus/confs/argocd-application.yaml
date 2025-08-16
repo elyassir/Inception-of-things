@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: playground
+  namespace: argocd
+spec:
+  project: default
+  source:
+          #  <service-name>.<namespace>.svc.cluster.local or just <service-name>.<namespace>.svc
+    repoURL: http://gitlab.gitlab.svc/root/argo-cd.git
+    targetRevision: HEAD
+    path: .
+  destination:
+         # <service-name>.<namespace>.svc
+         # special built-in Service pointing to the Kubernetes API server.
+    server: https://kubernetes.default.svc
+    namespace: dev
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
